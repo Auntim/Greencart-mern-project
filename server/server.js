@@ -7,6 +7,7 @@ import connectDB from './config/db.js';
 import userRouter from './routes/userRoute.js';
 import sellerRouter from './routes/sellerRoute.js';
 import connectCloudinary from './config/cloudinary.js';
+import productRouter from './routes/productRoute.js';
 dotenv.config();
 
 await connectDB();
@@ -24,9 +25,9 @@ app.use(cookieParser());
 app.use(cors({ origin: allowedOrigins, credentials: true }));
 
 app.get('/', (req, res) => res.send('API is running...'));
-
 app.use('/api/user', userRouter);
 app.use('/api/seller', sellerRouter);
+app.use('/api/product', productRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
