@@ -6,9 +6,11 @@ import 'dotenv/config';
 import connectDB from './config/db.js';
 import userRouter from './routes/userRoute.js';
 import sellerRouter from './routes/sellerRoute.js';
+import connectCloudinary from './config/cloudinary.js';
 dotenv.config();
 
 await connectDB();
+await connectCloudinary();
 
 const app = express();
 const port = process.env.PORT || 3000;
