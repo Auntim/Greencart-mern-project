@@ -29,3 +29,33 @@ export const placeOrderCOD = async (req, res) => {
         return res.json({ success: false, message: error.message })
     }
 }
+
+
+
+// get order by user Id : /api/order/user
+export const getUserOrder = async () => {
+    try {
+        const { userId } = req.body;
+        const order = await Order.find({
+            userId,
+            $or: [{ paymentType: "COD" }, { isPaid: true }]
+        }).populate("item.product address").sort({ createdAt: -1 });
+        res.json({ success: true, order })
+    } catch (error) {
+        res.json({ successz: false, message: error.message })
+    }
+}
+
+
+// get all order (for seller / admin) :/api/order/seller
+export const getAllOrder = async () => {
+    try {
+
+        const order = await Order.find({
+            $or: [{ paymentType: "COD" }, { isPaid: true }]
+        }).populate("item.product address").sort({ createdAt: -1 });
+        res.json({ success: true, order })
+    } catch (error) {
+        res.json({ successz: false, message: error.message })
+    }
+}
